@@ -1,0 +1,65 @@
+// Permutations I
+//https://blog.csdn.net/zhangpiu/article/details/50125743
+
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> result;
+        if(nums.size()==0)
+            return result;
+        result.push_back(vector<int>(1,nums[0]));
+        for(int i=1;i<nums.size();++i)
+        {
+            vector<vector<int>> tmp;
+            for(int j=0;j<=i;++j)
+            {
+                for(auto p:result)
+                {
+                    p.insert(p.begin()+j,nums[i]);
+                    tmp.push_back(p);
+                }
+            }
+            result=tmp;
+        }
+        return result;
+    }
+};
+
+// Permutations II
+// Use set to remove duplicates
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> result;
+        set<vector<int>> unique_set;
+        vector<vector<int>> unique_result;
+        if(nums.size()==0)
+            return result;
+        result.push_back(vector<int>(1,nums[0]));
+        for(int i=1;i<nums.size();++i)
+        {
+            vector<vector<int>> tmp;
+            for(int j=0;j<=i;++j)
+            {
+                for(auto p:result)
+                {
+                    p.insert(p.begin()+j,nums[i]);
+                    tmp.push_back(p);
+                }
+            }
+            result=tmp;
+        }
+        vector<vector<int>>::iterator iter;
+        for(iter=result.begin();iter!=result.end();++iter)
+        {
+            unique_set.insert((*iter));
+        }
+        set<vector<int>>::iterator iter2;
+        for(iter2=unique_set.begin();iter2!=unique_set.end();++iter2)
+        {
+            unique_result.push_back(*iter2);
+        }
+        return unique_result;
+    }
+};
+
