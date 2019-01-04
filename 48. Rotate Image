@@ -1,0 +1,34 @@
+// rotate the matrix 90 degree clockwise means flip along diagonal and then flip vertically.
+// idea from: https://blog.csdn.net/Xiaohei00000/article/details/50967810
+// code from: https://blog.csdn.net/u010695420/article/details/44778833
+
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        if(matrix.empty())
+            return;
+        int n=matrix.size();
+        int tmp;
+        // flip along diagonal
+        for(int i=0;i<n;++i)
+        {
+            for(int j=0;j<i;++j)
+            {
+                tmp=matrix[i][j];
+                matrix[i][j]=matrix[j][i];
+                matrix[j][i]=tmp;
+            }
+        }
+        // flip vertically
+        for(int i=0;i<n;++i)
+        {
+            for(int j=0;j<n/2;++j)
+            {
+                tmp=matrix[i][j];
+                matrix[i][j]=matrix[i][n-j-1];
+                matrix[i][n-j-1]=tmp;
+            }
+        }
+        return;
+    }
+};
