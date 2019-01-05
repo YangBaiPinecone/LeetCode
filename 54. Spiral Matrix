@@ -1,0 +1,45 @@
+// https://blog.csdn.net/Koala_Tree/article/details/79893728
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        if(matrix.size()==0)
+            return {};        
+        int rows=matrix.size();
+        int cols=matrix[0].size();
+        vector<int> spiral(rows*cols);
+        int u=0;    // upper
+        int b=rows-1;   // bottom
+        int l=0;    // left
+        int r=cols-1;   // right
+        int k=0;    // iterator of spiral
+        while(true)
+        {
+            for(int col=l;col<=r;++col)
+            {
+                spiral[k++]=matrix[u][col];
+            }
+            if(++u>b)
+                break;
+            for(int row=u;row<=b;++row)
+            {
+                spiral[k++]=matrix[row][r];
+            }
+            if(--r<l)
+                break;
+            for(int col=r;col>=l;--col)
+            {
+                spiral[k++]=matrix[b][col];
+            }
+            if(--b<u)
+                break;
+            for(int row=b;row>=u;--row)
+            {
+                spiral[k++]=matrix[row][l];
+            } 
+            if(++l>r)
+                break;
+        }
+        return spiral;
+    }
+};
