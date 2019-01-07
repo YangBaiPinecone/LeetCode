@@ -1,5 +1,6 @@
 // https://blog.csdn.net/Koala_Tree/article/details/79893728
 
+// 54. Spiral Matrix
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
@@ -39,6 +40,45 @@ public:
             } 
             if(++l>r)
                 break;
+        }
+        return spiral;
+    }
+};
+
+// 59. Spiral Matrix II
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        if(n<1)
+            return {};
+        vector<vector<int> > spiral(n,vector<int>(n));
+        int u=0;    // upper
+        int b=n-1;  // bottom
+        int l=0;    // left
+        int r=n-1;  // right
+        int k=1;
+        while(k<=n*n)
+        {
+            for(int col=l;col<=r;++col)
+            {
+                spiral[u][col]=k++;
+            }
+            u++;
+            for(int row=u;row<=b;++row)
+            {
+                spiral[row][r]=k++;
+            }
+            r--;
+            for(int col=r;col>=l;--col)
+            {
+                spiral[b][col]=k++;
+            }
+            b--;
+            for(int row=b;row>=u;--row)
+            {
+                spiral[row][l]=k++;
+            }
+            l++;
         }
         return spiral;
     }
