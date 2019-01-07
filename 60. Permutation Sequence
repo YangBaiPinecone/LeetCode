@@ -1,0 +1,23 @@
+// http://www.cnblogs.com/grandyang/p/4358678.html
+
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        string res;
+        string num="123456789";
+        vector<int> f(n,1);     // generate factor from 0 to n-1. n! is not used.
+        for(int i=1;i<n;++i)
+        {
+            f[i]=f[i-1]*i;
+        }
+        --k;    // index is 0 based
+        for(int i=n;i>=1;--i)
+        {
+            int j=k/f[i-1];
+            res.push_back(num[j]);
+            k %= f[i-1];
+            num.erase(j,1);
+        }
+        return res;
+    }
+};
