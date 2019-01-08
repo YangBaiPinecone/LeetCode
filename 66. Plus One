@@ -1,0 +1,30 @@
+// https://blog.csdn.net/a2331046/article/details/51536723
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        for(int i=digits.size()-1;i>=0;--i)
+        {
+            if(digits[i]<9)
+            {
+                digits[i]++;    // 初始情况+1，其他为进位情况
+                break;
+            }
+            else
+            {
+                digits[i]=0;    // digits[i]==9,9+1=10
+                if(i==0)    // size+1
+                {
+                    digits.push_back(digits[digits.size()-1]);
+                    // 向后窜一位,此时size（）已经加长了一位，所以下面-2
+                    for(int j=digits.size()-2;j>0;--j)
+                    {
+                        digits[j]=digits[j-1];
+                    }
+                    digits[0]=1;
+                }
+            }
+        }
+        return digits;
+    }
+};
