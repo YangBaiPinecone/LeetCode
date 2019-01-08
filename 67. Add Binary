@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int sizea=a.size();
+        int sizeb=b.size();
+        while(sizea>sizeb)
+        {
+            b="0"+b;
+            sizeb++;
+        }
+        while(sizea<sizeb)
+        {
+            a="0"+a;
+            sizea++;
+        }
+        int carry=0;
+        string res="";
+        for(int i=sizea-1;i>=0;--i)
+        {
+            int numa=a[i]-'0';
+            int numb=b[i]-'0';
+            int sum = numa+numb+carry;
+            res=to_string(sum%2)+res;
+            carry=sum/2;
+        }
+        if(carry)
+        {
+            res=to_string(carry)+res;
+        }
+        return res;
+    }
+};
