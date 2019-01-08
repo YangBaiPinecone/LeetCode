@@ -1,0 +1,50 @@
+// https://blog.csdn.net/Jin_Kwok/article/details/51095301
+
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        vector<vector<int> > path(m, vector<int>(n,1)); // 初始化路径矩阵中每一格为1,代表一条路
+        for(int i=1;i<m;++i)    // start from (0,0)
+        {
+            for(int j=1;j<n;++j)
+            {
+                path[i][j]=path[i-1][j]+path[i][j-1];
+            }
+        }
+        return path[m-1][n-1];
+    }
+};
+
+// https://blog.csdn.net/happyaaaaaaaaaaa/article/details/50858750
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int m = obstacleGrid.size();
+        int n = obstacleGrid[0].size();
+        vector<vector<int> > path(m, vector<int>(n,0)); // 初始化路径矩阵中每一格为0,之后会进行赋值
+        for(int i=0;i<m&&obstacleGrid[i][0]!=1;++i)
+        {
+            path[i][0]=1;
+        }
+        for(int j=0;j<n&&obstacleGrid[0][j]!=1;++j)
+        {
+            path[0][j]=1;
+        }
+        
+        for(int i=1;i<m;++i)    // start from (0,0)
+        {
+            for(int j=1;j<n;++j)
+            {
+                if(obstacleGrid[i][j]==1)
+                {
+                    path[i][j]=0;
+                }
+                else
+                {
+                    path[i][j]=path[i-1][j]+path[i][j-1];
+                }                
+            }
+        }
+        return path[m-1][n-1];
+    }
+};
