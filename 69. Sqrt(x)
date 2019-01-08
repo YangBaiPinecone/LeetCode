@@ -1,0 +1,29 @@
+// https://blog.csdn.net/Jin_Kwok/article/details/51100665
+
+class Solution {
+public:
+    int mySqrt(int x) {
+        if(x<=1)
+            return x;
+        int low =1;
+        int high=x;
+        int mid;
+        while(low<=high)
+        {
+            mid=low+(high-low)/2;
+            if(x/mid>=mid && x/(mid+1)<(mid+1))
+            {
+                return mid;
+            }
+            else if(x/mid>mid)
+            {
+                low=mid+1;
+            }
+            else
+            {
+                high=mid-1;
+            }
+        }
+        return -1;
+    }
+};
