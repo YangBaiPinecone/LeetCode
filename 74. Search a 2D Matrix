@@ -1,0 +1,46 @@
+// https://blog.csdn.net/weixin_37608065/article/details/73555270
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if(matrix.size()==0 || matrix[0].size()==0)
+            return false;
+        int u=0;    // upper
+        int b=matrix.size()-1;  // bottom
+        int l=0;    // left
+        int r=matrix[0].size(); // right
+        int row;
+        while(u<=b)
+        {
+            row=u+(b-u)/2;
+            if(matrix[row][0]==target)
+                return true;
+            else if(matrix[row][0]<target)
+            {
+                u=row+1;
+            }
+            else
+            {
+                b=row-1;
+            }
+        }
+        if(matrix[row][0]>target && row >0)
+            --row;
+        int col;
+        while(l<=r)
+        {
+            col=l+(r-l)/2;
+            if(matrix[row][col]==target)
+                return true;
+            else if(matrix[row][col]<target)
+            {
+                l=col+1;
+            }
+            else
+            {
+                r=col-1;
+            }
+        }
+        return false;
+    }
+};
