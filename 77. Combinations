@@ -1,0 +1,24 @@
+// https://blog.csdn.net/WX_ming/article/details/81591445
+
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> st;
+        combination(st, vector<int>(), n, k, 1);
+        return st;
+    }
+    void combination(vector<vector<int>>& st, vector<int> nums, int n, int k, int pos)
+    {
+        if(nums.size()==k)
+        {
+            st.push_back(nums);
+            return;
+        }
+        for(int i=pos; i<=n; ++i)
+        {
+            nums.push_back(i);
+            combination(st,nums,n,k,i+1);
+            nums.pop_back();
+        }
+    }
+};
