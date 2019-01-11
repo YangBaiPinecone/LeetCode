@@ -1,0 +1,56 @@
+// https://blog.csdn.net/zhangxiao93/article/details/49893811
+
+class Solution {
+public:
+    bool dfs(vector<vector<char>>board, string word, vector<vector<int>>&visited, int r, int c, int count)
+    {
+        if(count==word.size()-1)
+            return true;    // count means count th element is checked
+        visited[r][c]=1;
+        if(r-1>=0 && !visited[r-1][c] && board[r-1][c]==word[count+1])
+        {
+            if(dfs(board, word, visited, r-1, c, count+1))
+                return true;
+        }
+        if(c+1<=board[0].size()-1 && !visited[r][c+1] && board[r][c+1]==word[count+1])
+        {
+            if(dfs(board, word, visited, r, c+1, count+1))
+                return true;
+        }
+        if(r+1<=board.size()-1 && !visited[r+1][c] && board[r+1][c]==word[count+1])
+        {
+            if(dfs(board, word, visited, r+1, c, count+1))
+                return true;
+        }
+        if(c-1>=0 && !visited[r][c-1] && board[r][c-1]==word[count+1])
+        {
+            if(dfs(board, word, visited, r, c-1, count+1))
+                return true;
+        }
+        visited[r][c]=0;
+        return false;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        if(word.size()==0)
+            return true;
+        if(board.size()==0 || board[0].size()==0)
+            return false;
+        int row=board.size();
+        int col=board[0].size();
+        vector<vector<int>> visited(row,vector<int>(col,0));
+        for(int i=0;i<row;++i)
+        {
+            for(int j=0;j<col;++j)
+            {
+                if(board[i][j]==word[0])
+                {
+                    if(dfs(board, word, visited, i, j, 0))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+};
