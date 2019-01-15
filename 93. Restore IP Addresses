@@ -1,0 +1,30 @@
+// https://blog.csdn.net/qq508618087/article/details/51337829
+
+class Solution {
+public:
+    void DFS(vector<string>& res, string s, string str, int k)
+    {
+        if(s.size()==0 && k==4)
+        {
+            res.push_back(str.substr(0,str.size()-1));
+            return;
+        }
+        if(s.size()==0 || k==4)
+            return;
+        for(int i=1; i<=min(3, (int)s.size()); ++i)
+        {
+            int val=stoi(s.substr(0,i));
+            if(val>=0 && val<=255)
+            {
+                DFS(res, s.substr(i), str+s.substr(0,i)+'.',k+1);
+            }
+            if(s[0]=='0')
+                break;
+        }
+    }
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> res;
+        DFS(res, s, "", 0);
+        return res;
+    }
+};
