@@ -1,0 +1,66 @@
+// 96. Unique Binary Search Trees
+
+class Solution {
+public:
+    int numTrees(int n) {
+        vector<int> G(n+1,0);
+        G[0]=1;
+        G[1]=1;
+        for(int i=2;i<=n;++i)
+        {
+            for(int j=1;j<=i;++j)
+            {
+                G[i]+=G[j-1]*G[i-j];
+            }
+        }
+        return G[n];
+    }
+};
+
+// 95. Unique Binary Search Trees II
+// https://blog.csdn.net/bcj296050240/article/details/51525857
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode*> generateTree(int from, int to)
+    {
+        vector<TreeNode*> res;
+        if(to-from<0)
+            res.push_back(NULL);
+        if(to==from)
+            res.push_back(new TreeNode(from));
+        if(to-from>0)
+        {
+            for(int i=from;i<=to;++i)
+            {
+                vector<TreeNode*> l=generateTree(from, i-1);
+                vector<TreeNode*> r=generateTree(i+1,to);
+                for(int j=0; j<l.size();++j)
+                {
+                    for(int k=0; k<r.size();++k)
+                    {
+                        TreeNode * h=new TreeNode(i);
+                        h->left=l[j];
+                        h->right=r[k];
+                        res.push_back(h);
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    vector<TreeNode*> generateTrees(int n) {
+        if(n==0)
+            return vector<TreeNode*>();
+        return generateTree(1,n);
+    }
+};
