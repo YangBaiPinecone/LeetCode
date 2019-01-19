@@ -1,0 +1,50 @@
+// see the solution
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* findMiddleElement(ListNode* head)
+    {
+        ListNode* prePtr=NULL;
+        ListNode* slowPtr=head;
+        ListNode* fastPtr=head;
+        while(fastPtr!=NULL && fastPtr->next!=NULL)
+        {
+            prePtr=slowPtr;
+            slowPtr=slowPtr->next;
+            fastPtr=fastPtr->next->next;
+        }
+        if(prePtr!=NULL)
+        {
+            prePtr->next=NULL;
+        }
+        return slowPtr;
+    }
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(head==NULL)
+            return NULL;
+        ListNode* mid=findMiddleElement(head);
+        TreeNode* root=new TreeNode(mid->val);
+        if(head==mid)
+            return root;
+        root->left=sortedListToBST(head);
+        root->right=sortedListToBST(mid->next);
+        return root;
+    }
+};
