@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> res;
+        if(numRows<1)
+            return res;
+        vector<int> next;
+        vector<int> curr{1};
+        res.push_back(curr);
+        while(numRows>1)
+        {
+            next.push_back(1);
+            for(int i=1;i<curr.size();++i)
+            {
+                next.push_back(curr[i]+curr[i-1]);
+            }
+            next.push_back(1);
+            curr=next;
+            next.clear();
+            res.push_back(curr);
+            numRows--;
+        }
+        return res;
+    }
+};
+
+
+119. Pascal's Triangle II
+
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int> res;
+        if(rowIndex<0)
+            return res;
+        vector<int> curr{1};
+        if(rowIndex==0)
+        {
+            return curr;
+        }
+        vector<int> next;
+        while(rowIndex>0)
+        {
+            next.push_back(1);
+            for(int i=1;i<curr.size();++i)
+            {
+                next.push_back(curr[i]+curr[i-1]);
+            }
+            next.push_back(1);
+            curr=next;
+            next.clear();
+            --rowIndex;
+        }
+        return curr;
+    }
+};
