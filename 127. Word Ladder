@@ -1,0 +1,53 @@
+// https://blog.csdn.net/cs_linyf/article/details/52450201
+// https://www.jiuzhang.com/solution/word-ladder/#tag-highlight-lang-cpp
+
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        if(beginWord==endWord)
+            return 1;
+        if(beginWord.size()==0 || beginWord.size()!=endWord.size())
+            return 0;
+        // copy wordList to a new set
+        unordered_set<string> dict;
+        for(int i=0;i<wordList.size();++i)
+        {
+            dict.insert(wordList[i]);
+        }
+        queue<string> q;
+        q.push(beginWord);
+        dict.erase(beginWord);
+        int length=2;   // length of the sequence: it has begin and end words at least
+        while(!q.empty())
+        {
+            int size=q.size();
+            for(int i=0;i<size;++i)
+            {
+                string word=q.front();
+                q.pop();
+                for(int j=0;j<word.size();++j)
+                {
+                    char oldchar=word[j];
+                    for(char c='a';c<='z';++c)
+                    {
+                        if(c==oldchar)
+                            continue;
+                        word[j]=c;
+                        if(dict.find(word)!=dict.end())
+                        {
+                            if(word==endWord)
+                            {
+                                return length;
+                            }
+                            q.push(word);
+                            dict.erase(word);
+                        }
+                    }
+                    word[j]=oldchar;
+                }
+            }
+            ++length;
+        }
+        return 0;
+    }
+};
