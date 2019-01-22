@@ -1,0 +1,20 @@
+// 自底向上才不会出现local minimum
+// https://blog.csdn.net/liuchonge/article/details/70209533
+
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int row=triangle.size();
+        vector<int> res(row+1,0);   // res is the next row of the current processing row, so it should have 1 one element
+        for(int i=row-1;i>=0;--i)
+        {
+            vector<int> tmp=triangle[i];
+            for(int j=0;j<tmp.size();++j)
+            {
+                res[j]=tmp[j]+min(res[j],res[j+1]);
+            }
+        }
+        return res[0];
+    }
+};
+
