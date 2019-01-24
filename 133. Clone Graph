@@ -1,0 +1,30 @@
+// https://blog.csdn.net/qq508618087/article/details/50806972
+// https://blog.csdn.net/juanqinyang/article/details/61640711
+
+/**
+ * Definition for undirected graph.
+ * struct UndirectedGraphNode {
+ *     int label;
+ *     vector<UndirectedGraphNode *> neighbors;
+ *     UndirectedGraphNode(int x) : label(x) {};
+ * };
+ */
+class Solution {
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        if(node==NULL)
+            return NULL;
+        
+        if(hash.count(node))
+            return hash[node];
+        UndirectedGraphNode * copy = new UndirectedGraphNode(node->label);
+        hash[node]=copy;
+        for(auto val : node->neighbors)
+        {
+            hash[node]->neighbors.push_back(cloneGraph(val));
+        }
+        return hash[node];
+    }
+private:
+    unordered_map<UndirectedGraphNode *, UndirectedGraphNode *> hash;
+};
