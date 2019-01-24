@@ -1,0 +1,59 @@
+// https://blog.csdn.net/qq_41098649/article/details/81455813
+// leetcode 判断有问题，但是eclipse上运行没问题？？？
+
+class Solution {
+public:
+    void check(vector<vector<char>>& board,int x,int y)
+    {
+        if(board[x][y]=='O')
+        {
+            board[x][y]='1';
+            if(x-1>=0)
+            {
+                check(board,x-1,y);
+            }
+            if(y-1>=0)
+            {
+                check(board,x,y-1);
+            }
+            if(x+1<=board.size()-1)
+            {
+                check(board,x+1,y);
+            }
+            if(y+1<=board.size()-1)
+            {
+                check(board,x,y+1);
+            }
+        }
+        return;
+    }
+    void solve(vector<vector<char>>& board) {
+        if(board.size()==0 || board[0].size()==0)
+            return;
+        int row=board.size();
+        int col=board[0].size();
+        for(int i=0;i<row;++i)
+        {
+            check(board,i,0);   //first col
+            check(board,i,col-1);   // last col
+        }
+        for(int i=0;i<col;++i)
+        {
+            check(board,0,i);   // 1st row
+            check(board,row-1,i);   // last row
+        }
+        // flip
+        for(int i=0;i<row;++i)
+        {
+            for(int j=0;j<col;++j)
+            {
+                if(board[i][j]=='O')
+                    board[i][j]='X';
+                else if (board[i][j]=='1')
+                    board[i][j]='O';
+            }
+        }
+        return;
+    }
+};
+
