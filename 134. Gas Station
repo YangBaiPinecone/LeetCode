@@ -1,0 +1,21 @@
+// http://www.cnblogs.com/grandyang/p/4266812.html
+
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int start=0;
+        int sum=0;  // check if the car can get the next station
+        int total=0;    // check if the car can travel around
+        for(int i=0;i<gas.size();++i)
+        {
+            sum+=gas[i]-cost[i];
+            total+=gas[i]-cost[i];
+            if(sum<0)
+            {
+                start=i+1;
+                sum=0;
+            }
+        }
+        return total>=0?start:-1;
+    }
+};
