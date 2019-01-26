@@ -1,0 +1,17 @@
+// https://blog.csdn.net/yutianzuijin/article/details/50597413
+// 出现3次，low的对应位会被置0，出现一次置1，所以最后输出low即可
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int low =0;
+        int high =0;
+        for(int i=0;i<nums.size();++i)
+        {
+            int tempLow=~high&(low^nums[i]);
+            high=(high&~low&~nums[i])|(~high&low&nums[i]);
+            low=tempLow;
+        }
+        return low;
+    }
+};
