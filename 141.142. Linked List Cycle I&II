@@ -62,6 +62,8 @@ public:
 
 //142. Linked List Cycle II
 // 直接套用上一题unordered_set方法
+// method2: slow fast pointer
+// https://leetcode.com/problems/linked-list-cycle-ii/discuss/44781/Concise-O(n)-solution-by-using-C%2B%2B-with-Detailed-Alogrithm-Description
 
 /**
  * Definition for singly-linked list.
