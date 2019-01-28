@@ -1,0 +1,38 @@
+// http://www.cnblogs.com/grandyang/p/4254860.html
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(head==NULL || head->next==NULL || head->next->next==NULL)
+            return;     // no need to reorder
+        stack<ListNode*> myst;
+        ListNode* curr=head;
+        while(curr)
+        {
+            myst.push(curr);
+            curr=curr->next;
+        }
+        int count=(static_cast<int>(myst.size())-1)/2;
+        curr=head;
+        while(count>0)
+        {
+            --count;
+            auto t=myst.top();
+            myst.pop();
+            ListNode* next=curr->next;
+            curr->next=t;
+            t->next=next;
+            curr=next;
+        }
+        myst.top()->next=NULL;  // deal with last element in the reordered list.
+        return;
+    }
+};
