@@ -59,3 +59,37 @@ public:
         return true;
     }
 };
+
+//142. Linked List Cycle II
+// 直接套用上一题unordered_set方法
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        unordered_set<ListNode*> myset;
+        if(head==NULL)
+            return NULL;
+        while(head!=NULL)
+        {
+            if(myset.count(head))
+            {
+                return head;
+            }
+            else
+            {
+                myset.insert(head);
+            }
+            head=head->next;
+        }
+        return NULL;
+    }
+};
+
