@@ -1,0 +1,65 @@
+// https://blog.csdn.net/weixin_37933986/article/details/72638587
+// https://blog.csdn.net/USTC_Zn/article/details/60873137
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* merge(ListNode* left, ListNode* right)
+    {
+        if(left==NULL)
+            return right;
+        if(right==NULL)
+            return left;
+        ListNode* dummy= new ListNode(0);
+        ListNode* tmp=dummy;
+        while(left!=NULL && right!=NULL)
+        {
+            if(left->val>right->val)
+            {
+                tmp->next=right;
+                right=right->next;
+            }
+            else
+            {
+                tmp->next=left;
+                left=left->next;
+            }
+            tmp=tmp->next;
+        }
+        if(left==NULL)
+        {
+            tmp->next=right;
+        }
+        if(right==NULL)
+        {
+            tmp->next=left;
+        }
+        return dummy->next;
+    }
+    ListNode* sortList(ListNode* head) {
+        if(head==NULL || head->next==NULL)
+            return head;
+        // find middle of the list
+        ListNode* pre=NULL;
+        ListNode* fast=head;
+        ListNode* slow=head;
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            pre=slow;
+            fast=fast->next->next;
+            slow=slow->next;
+        }
+        // cut the list into two parts
+        pre->next=NULL;
+        ListNode* left=sortList(head);
+        ListNode* right=sortList(slow);
+        return merge(left, right);
+    }
+};
