@@ -1,0 +1,36 @@
+// create new list: pre is in the new list, curr is in the old list
+// https://blog.csdn.net/cinderella_niu/article/details/43192479
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        if(head==NULL || head->next==NULL)
+            return head;
+        ListNode* dummy=new ListNode(0);
+        ListNode* pre=dummy;
+        ListNode* curr=head;
+        while(curr!=NULL)
+        {
+            pre=dummy;  //reset pre
+            ListNode* next=curr->next;  // save curr->next
+            // search right place to insert: use pre->next since pre==dummy
+            while(pre->next!=NULL && pre->next->val<=curr->val)
+            {
+                pre=pre->next;
+            }
+            // pre->next is larger than curr
+            curr->next=pre->next;
+            pre->next=curr;
+            curr=next;
+        }
+        return dummy->next;
+    }
+};
