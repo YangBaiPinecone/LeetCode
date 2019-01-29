@@ -1,0 +1,42 @@
+// use stack, be careful for the order of two operands
+// http://www.cnblogs.com/grandyang/p/4247718.html
+
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        if(tokens.size()==1)
+            return stoi(tokens[0]);
+        stack<int> myst;
+        for(int i=0;i<tokens.size();++i)
+        {
+            if(tokens[i]!="+" && tokens[i]!="-" && tokens[i]!="*" && tokens[i]!="/")
+            {
+                myst.push(stoi(tokens[i]));
+            }
+            else
+            {
+                int num2=myst.top();
+                myst.pop();
+                int num1=myst.top();
+                myst.pop();
+                if(tokens[i]=="+")
+                {
+                    myst.push(num1+num2);
+                }
+                if(tokens[i]=="-")
+                {
+                    myst.push(num1-num2);
+                }
+                if(tokens[i]=="*")
+                {
+                    myst.push(num1*num2);
+                }
+                if(tokens[i]=="/")
+                {
+                    myst.push(num1/num2);
+                }
+            }
+        }
+        return myst.top();
+    }
+};
