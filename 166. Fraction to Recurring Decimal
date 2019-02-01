@@ -1,0 +1,36 @@
+// https://blog.csdn.net/xiaoquantouer/article/details/61418213
+// 注意string插入函数的用法
+
+class Solution {
+public:
+    string fractionToDecimal(int numerator, int denominator) {
+        string res;
+        if(!numerator)
+            return "0";
+        if(numerator<0 ^ denominator<0)
+            res+="-";
+        long long num = abs(static_cast<long long>(numerator));
+        long long den = abs(static_cast<long long>(denominator));
+        long long quotient = num/den;
+        if(num%den==0)
+            return res+=to_string(abs(num/den));
+        
+        res += to_string(quotient);
+        res += ".";
+        long long rmd = num%den;
+        unordered_map<long long, int> m;
+        while(rmd)
+        {
+            if(m.find(rmd)!=m.end())
+            {
+                res.insert(m[rmd],"(");
+                res += ")";
+                break;
+            }
+            m[rmd]=res.size();
+            res += to_string(rmd*10/den);
+            rmd = rmd*10%den;
+        }
+        return res;
+    }
+};
