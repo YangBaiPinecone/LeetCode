@@ -1,0 +1,24 @@
+// https://blog.csdn.net/u012162613/article/details/42059591
+
+class Solution {
+public:
+    string convertToTitle(int n) {
+        string res;
+        while(n)
+        {
+            int r=n%26;
+            n/=26;
+            if(r==0)
+            {
+                res+='Z';
+                --n;
+            }
+            else
+            {
+                res+=('A'+r-1);
+            }
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
