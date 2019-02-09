@@ -1,0 +1,16 @@
+// https://blog.csdn.net/liujiayu1015/article/details/51520239
+// https://blog.csdn.net/u012877472/article/details/49557077
+
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n=nums.size();
+        k=k%n;
+        // reverse the entire array
+        reverse(nums.begin(),nums.end());
+        // reverse first k elements
+        reverse(nums.begin(),nums.begin()+k);
+        // reverse last n-k elements
+        reverse(nums.begin()+k,nums.end());
+    }
+};
