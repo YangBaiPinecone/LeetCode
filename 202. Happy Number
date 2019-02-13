@@ -1,0 +1,31 @@
+// 如果之前出现过，则不可能是快乐数，用unordered_set 记录之前是否出现过
+// https://blog.csdn.net/linpengbin/article/details/50510344
+
+class Solution {
+public:
+    bool isHappy(int n) {    
+        int number=n;
+        int mod=0;
+        unordered_set<int> squaredOut;
+        squaredOut.insert(n);
+        while(true)
+        {
+            int squaredNum=0;
+            while(number!=0)
+            {
+                mod=number%10;
+                number/=10;
+                squaredNum+=mod*mod;
+            }
+            if(squaredNum==1)
+                return true;
+            else if(squaredOut.count(squaredNum))
+            {
+                return false;
+            }
+            squaredOut.insert(squaredNum);
+            number=squaredNum;
+        }
+        return false;
+    }
+};
