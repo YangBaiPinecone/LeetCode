@@ -1,0 +1,24 @@
+// https://zh.wikipedia.org/wiki/%E5%9F%83%E6%8B%89%E6%89%98%E6%96%AF%E7%89%B9%E5%B0%BC%E7%AD%9B%E6%B3%95
+// http://www.cnblogs.com/grandyang/p/4462810.html
+
+class Solution {
+public:
+    int countPrimes(int n) {
+        int cnt=0;
+        vector<bool> isPrime(n+1, true);
+        isPrime[0]=false;
+        isPrime[1]=false;
+        for(int i=0;i<n;++i)
+        {
+            if(isPrime[i])
+            {
+                ++cnt;
+                for(int j=2;j*i<n;++j)  // i 的整数倍（j），不包括1倍
+                {
+                    isPrime[j*i]=false;
+                }
+            }
+        }
+        return cnt;
+    }
+};
