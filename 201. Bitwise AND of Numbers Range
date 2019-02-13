@@ -1,0 +1,17 @@
+// https://blog.csdn.net/fuxuemingzhu/article/details/79495633
+
+class Solution {
+public:
+    int rangeBitwiseAnd(int m, int n) {
+        int res=0;
+        int shift=0;
+        while(m!=n)
+        {
+            m>>=1;
+            n>>=1;
+            ++shift;
+        }
+        res=(m<<shift);
+        return res;
+    }
+};
