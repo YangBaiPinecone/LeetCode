@@ -1,0 +1,42 @@
+// https://blog.csdn.net/u011391629/article/details/86475169
+// http://www.cnblogs.com/grandyang/p/4484571.html
+
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<vector<int>> graph(numCourses,  vector<int>(0));
+        vector<int> inDegree(numCourses, 0);
+        
+        // establish adjacency-list and count indegree
+        for(auto p: prerequisites)
+        {
+            graph[p.second].push_back(p.first); // p.first->p.second
+            ++inDegree[p.first];    // indegree +1
+        }
+        // find point of indegree is zero
+        queue<int> Q;
+        for(int i=0; i<numCourses; ++i)
+        {
+            if(inDegree[i]==0)
+                Q.push(i);
+        }
+        // BFS
+        int count=0;
+        while(!Q.empty())
+        {
+            int curr=Q.front();
+            Q.pop();
+            ++count;
+            for(auto c:graph[curr])
+            {
+                --inDegree[c];
+                if(inDegree[c]==0)
+                {
+                    Q.push(c);
+                }
+            }
+        }
+        return count==numCourses;
+    }
+};
+
