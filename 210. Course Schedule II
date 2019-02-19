@@ -1,0 +1,38 @@
+// http://www.cnblogs.com/grandyang/p/4504793.html
+
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<int> res;
+        vector<int> inDegree(numCourses, 0);
+        vector<vector<int>> graph(numCourses, vector<int>(0));
+        for(auto p:prerequisites)
+        {
+            graph[p.second].push_back(p.first);
+            ++inDegree[p.first];
+        }
+        queue<int> Q;
+        for(int i=0; i<inDegree.size(); ++i)
+        {
+            if(inDegree[i]==0)
+                Q.push(i);      // don't push inDegree[i]
+        }
+        while(!Q.empty())
+        {
+            int t=Q.front();
+            Q.pop();
+            res.push_back(t);
+            for(auto a:graph[t])
+            {
+                --inDegree[a];
+                if(inDegree[a]==0)
+                {
+                    Q.push(a);
+                }
+            }
+        }
+        if(res.size()!=numCourses)
+            res.clear();
+        return res;
+    }
+};
