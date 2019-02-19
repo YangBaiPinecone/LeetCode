@@ -1,0 +1,74 @@
+// https://blog.csdn.net/fuxuemingzhu/article/details/79390052
+
+class TrieNode
+{
+public:
+    bool is_word;
+    vector<TrieNode*> children;
+    TrieNode():is_word(false), children(26, nullptr){}
+    ~TrieNode()
+    {
+        for(auto child:children)
+        {
+            if(child)
+                delete child;
+        }
+    }
+};
+class WordDictionary {
+private:
+    std::unique_ptr<TrieNode> root_;
+public:
+    /** Initialize your data structure here. */
+    WordDictionary():root_(new TrieNode()) {
+    }
+    
+    /** Adds a word into the data structure. */
+    void addWord(string word) {
+        TrieNode* p=root_.get();
+        for(const char c:word)
+        {
+            if(!p->children[c-'a'])
+            {
+                p->children[c-'a']= new TrieNode();
+            }
+            p=p->children[c-'a'];
+        }
+        p->is_word=true;
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    bool search(string word) {
+        return match(word, root_.get(), 0);
+    }
+    
+    bool match(const string& word, TrieNode* p, int start)
+    {
+        if(!p)
+            return false;   // if p is not nullptr, it means char c is in the trie.
+        if(start==word.size())
+            return p->is_word;
+        const char c = word[start];
+        if(c!='.')
+        {
+            return match(word, p->children[c-'a'], start+1);
+        }
+        else
+        {
+            for(auto child: p->children)
+            {
+                if(match(word, child, start+1))
+                    return true;
+            }
+        }
+        return false;
+    }
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * bool param_2 = obj.search(word);
+ */
+
