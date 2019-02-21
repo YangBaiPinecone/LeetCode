@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/contains-duplicate-iii/discuss/61641/C%2B%2B-using-set-(less-10-lines)-with-simple-explanation.
+// http://www.cnblogs.com/grandyang/p/4545261.html
 // 需要用long long， 不然溢出
  bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
     set<int> window; // set is ordered automatically 
