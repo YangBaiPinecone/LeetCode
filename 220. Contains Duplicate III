@@ -1,0 +1,36 @@
+// https://leetcode.com/problems/contains-duplicate-iii/discuss/61641/C%2B%2B-using-set-(less-10-lines)-with-simple-explanation.
+// 需要用long long， 不然溢出
+ bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+    set<int> window; // set is ordered automatically 
+    for (int i = 0; i < nums.size(); i++) {
+        if (i > k) window.erase(nums[i-k-1]); // keep the set contains nums i j at most k
+        // |x - nums[i]| <= t  ==> -t <= x - nums[i] <= t;
+        auto pos = window.lower_bound(nums[i] - t); // x-nums[i] >= -t ==> x >= nums[i]-t 
+        // x - nums[i] <= t ==> |x - nums[i]| <= t    
+        if (pos != window.end() && *pos - nums[i] <= t) return true;
+        window.insert(nums[i]);
+    }
+    return false;
+}
+
+
+class Solution {
+public:
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        if(nums.size()<2)
+            return false;
+        set<long long> myset;
+        for(int i=0;i<nums.size();++i)
+        {
+            if(i>k)
+            {
+                myset.erase(nums[i-k-1]);
+            }
+            auto p = myset.lower_bound(static_cast<long long>(nums[i])-t);
+            if(p!=myset.end() && (*p)-nums[i]<=t)
+                return true;
+            myset.insert(nums[i]);
+        }
+        return false;
+    }
+};
