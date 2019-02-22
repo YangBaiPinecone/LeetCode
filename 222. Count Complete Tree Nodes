@@ -1,0 +1,43 @@
+// https://blog.csdn.net/Dream_angel_Z/article/details/46456465
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int getRightDepth(TreeNode* root)
+    {
+        int depth = 0;
+        while(root!=NULL)
+        {
+            ++depth;
+            root=root->right;
+        }
+        return depth;
+    }
+    int getLeftDepth(TreeNode* root)
+    {
+        int depth = 0;
+        while(root!=NULL)
+        {
+            ++depth;
+            root=root->left;
+        }
+        return depth;
+    }
+    int countNodes(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        int ldepth = getLeftDepth(root);
+        int rdepth = getRightDepth(root);
+        if(ldepth == rdepth)
+            return (1<<ldepth)-1;
+        return countNodes(root->left) + 1 + countNodes(root->right);
+    }
+};
