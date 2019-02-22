@@ -1,0 +1,26 @@
+// solution2
+// 注意dp维度比matrix大一，同时dp从1循环到row。这是因为if中判断的是matrix[i-1][j-1]，而不是当前的值，所以dp整体元素都向右下角移了一位。
+
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        if(matrix.size()==0 || matrix[0].size()==0)
+            return 0;
+        int row = matrix.size();
+        int col = matrix[0].size();
+        vector<vector<int>> dp(row+1, vector<int>(col+1,0));
+        int max_sqr_len = 0;    // side length of max square
+        for(int i=1;i<row+1;++i)
+        {
+            for(int j=1;j<col+1;++j)
+            {
+                if(matrix[i-1][j-1]=='1')
+                {
+                    dp[i][j]=min(min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1])+1;
+                    max_sqr_len=max(max_sqr_len, dp[i][j]);
+                }
+            }
+        }
+        return max_sqr_len*max_sqr_len;
+    }
+};
