@@ -1,0 +1,52 @@
+class MyStack {
+private: 
+    queue<int> q1;
+    queue<int> q2;
+    int top_val;
+public:
+    /** Initialize your data structure here. */
+    MyStack() {
+        
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        q1.push(x);
+        top_val=x;
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        while(q1.size()>1)
+        {
+            top_val = q1.front();
+            q1.pop();
+            q2.push(top_val);
+        }
+        int pop_val=q1.front();   //弹出q1中最后一个元素
+        q1.pop();
+        queue<int> tmp=q1;
+        q1=q2;
+        q2=tmp; //相当于把q2置空
+        return pop_val;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return top_val;
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return q1.empty();
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * bool param_4 = obj.empty();
+ */
