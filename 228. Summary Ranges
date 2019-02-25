@@ -1,0 +1,42 @@
+// https://blog.csdn.net/liuchonge/article/details/70774372
+// runtime error???
+
+class Solution {
+public:
+    vector<string> summaryRanges(vector<int>& nums) {
+        vector<string> res;
+        if(nums.size()==0)
+            return res;
+        int t_s=nums[0];
+        int t_e=nums[0];
+        int i=0;
+        while(i<nums.size())
+        {
+            if(i+1<nums.size() && nums[i]+1==nums[i+1]) //make sure nums[i+1] is not over flow and since the array is sorted
+            {
+                // ++i;
+                // continue;
+            }
+            else
+            {
+                t_e=nums[i];
+                string s;
+                if(t_s==t_e)
+                {
+                    s+=to_string(t_s);
+                }
+                else
+                {
+                    s+=to_string(t_s);
+                    s+="->";
+                    s+=to_string(t_e);
+                }
+                res.push_back(s);
+                t_s=nums[i+1];
+            }
+            ++i;
+        }
+        return res;
+    }
+};
+
