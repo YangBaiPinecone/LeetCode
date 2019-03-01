@@ -1,0 +1,37 @@
+// https://www.jianshu.com/p/9984c329f3c8
+// https://www.youtube.com/watch?v=gxYV8eZY0eQ
+
+class Solution {
+public:
+    vector<int> diffWaysToCompute(string input) {
+        vector<int> result;
+        for(int i=0; i<input.size();++i)
+        {
+            const char c = input[i];
+            if(c=='+' || c=='-' || c=='*')
+            {
+                const string l_str = input.substr(0, i);
+                const string r_str = input.substr(i+1);
+                auto l = diffWaysToCompute(l_str);
+                auto r = diffWaysToCompute(r_str);
+                for(auto a:l)
+                {
+                    for(auto b:r)
+                    {
+                        if(c=='+')
+                            result.push_back(a+b);
+                        else if(c=='-')
+                            result.push_back(a-b);
+                        else if(c=='*')
+                            result.push_back(a*b);
+                    }
+                }
+            }
+        }
+        if(result.empty())
+        {
+            result.push_back(atoi(input.c_str()));
+        }
+        return result;
+    }
+};
