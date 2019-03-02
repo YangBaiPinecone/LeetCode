@@ -1,0 +1,30 @@
+// https://www.cnblogs.com/grandyang/p/4743837.html
+// 链接的程序有错误，需要去掉重复的数字，如6=2*3， 6=3*2
+
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int> res(1,1);
+        int i2=0;
+        int i3=0;
+        int i5=0;
+        while(res.size()<n)
+        {
+            int num2 = res[i2]*2;
+            int num3 = res[i3]*3;
+            int num5 = res[i5]*5;
+            int num = min(num2, min(num3, num5));
+            if(num==num2)
+                ++i2;
+            else if(num==num3)
+                ++i3;
+            else if(num==num5)
+                ++i5;
+            if(num==res.back())     // filter out repetitive num: 2*3, 3*2
+                continue;
+            else
+                res.push_back(num);
+        }
+        return res.back();
+    }
+};
