@@ -1,0 +1,26 @@
+// http://www.cnblogs.com/grandyang/p/4741122.html
+
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {        
+        int diff=0;
+        for(auto &a :nums)
+        {
+            diff^=a;
+        }
+        diff &=-diff;   //找到两个只出现一次的数亦或之后得到1的一位作为标志位, 此方法将取出最右端的一位1， 此位可以作为区分两个只出现一次的数字的关键
+        vector<int> res(2,0);
+        for(auto & a:nums)
+        {
+            if(a&diff)  // seperate two numbers which only appears once
+            {
+                res[0]^=a;   // 别的即使满足条件也会被亦或成0
+            }
+            else
+            {
+                res[1]^=a;
+            }            
+        }
+        return res;        
+    }
+};
