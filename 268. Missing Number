@@ -1,0 +1,14 @@
+// https://blog.csdn.net/prayyojay/article/details/52871229
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int bitXor = nums.size();
+        for(int i=0; i<nums.size(); ++i)
+        {
+            bitXor ^= i;
+            bitXor ^= nums[i];
+        }
+        return bitXor;
+    }
+};
