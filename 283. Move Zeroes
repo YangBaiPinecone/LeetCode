@@ -1,0 +1,16 @@
+// solution3
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int idx_0=0;    // 初始值设置为0，即使第一位不是0也不影响结果，因为相当于自己和自己交换
+        for(int cur=0; cur<nums.size(); ++cur)
+        {
+            if(nums[cur]!=0)
+            {
+                swap(nums[idx_0++],nums[cur]);
+            }
+        }
+        return;
+    }
+};
