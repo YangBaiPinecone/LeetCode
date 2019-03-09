@@ -1,0 +1,20 @@
+// https://blog.csdn.net/fuxuemingzhu/article/details/51284292
+// 动态规划
+
+
+class Solution {
+public:
+    int numSquares(int n) {
+        // define dp[i], dp[i] is the number of perfect square numbers and index i is the summation, so dp[0]=0 means it will need 0 numbers to get the summation of 0
+        vector<int> dp(n+1, INT_MAX);
+        dp[0]=0;
+        for(int i=0; i<=n; ++i)     // loop througn every summation value
+        {
+            for(int j=1; i+j*j<=n; ++j) // loop through all possible values of perfect square numbers
+            {
+                dp[i+j*j]=min(dp[i]+1, dp[i+j*j]);
+            }
+        }
+        return dp[n];
+    }
+};
