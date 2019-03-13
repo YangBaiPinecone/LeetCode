@@ -1,0 +1,56 @@
+// https://blog.csdn.net/sjwl2012/article/details/54344670
+// 表示两种状态的方式很巧妙
+
+class Solution {
+public:
+    int neighbors(const vector<vector<int>>& board, int r, int c)
+    {
+        int rows=board.size();
+        int cols=board[0].size();
+        int res=0;
+        for(int i=max(0, r-1); i<=min(rows-1, r+1); ++i)
+        {
+            for(int j=max(0, c-1); j<=min(cols-1, c+1); ++j)
+            {
+                res+=board[i][j]&1;
+            }
+        }
+        res-=board[r][c]&1;
+        return res;
+    }
+    void gameOfLife(vector<vector<int>>& board) {
+        int rows=board.size();
+        int cols=board[0].size();
+        for(int i=0; i<rows; ++i)
+        {
+            for(int j=0; j<cols; ++j)
+            {
+                int n=neighbors(board, i, j);
+                if(board[i][j]==1)
+                {
+                    //当前为活
+                    if(n==2 || n==3)
+                    {
+                        board[i][j]=3;  //11 代表现在活之后活
+                    }
+                    //其他情况下下次都是死， 01不需要变
+                }
+                else    // 当前为死
+                {
+                    if(n==3)
+                    {
+                        board[i][j]=2;  // 10 当前死 之后活
+                    }
+                }
+            }
+        }
+        for(int i=0; i<rows; ++i)
+        {
+            for(int j=0; j<cols; ++j)
+            {
+                board[i][j]>>=1;
+            }
+        }
+        return;
+    }
+};
