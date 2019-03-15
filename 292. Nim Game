@@ -1,0 +1,8 @@
+// 看答案吧，这道题没什么意思
+
+class Solution {
+public:
+    bool canWinNim(int n) {
+        return (n%4!=0);
+    }
+};
