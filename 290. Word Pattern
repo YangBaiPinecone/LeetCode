@@ -1,0 +1,42 @@
+// https://blog.csdn.net/qjh5606/article/details/81453669
+
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        unordered_map<char, string> m;
+        vector<string> s;
+        for(int i=0; i<str.size(); ++i)
+        {
+            int j=str.find(" ",i);
+         
+            string sub = str.substr(i, j-i);
+            s.push_back(sub);
+            if(j==string::npos)     // 必须放在这里
+            {
+                break;
+            }   
+            i=j;        // 之后for循环还有个i++
+        }
+        int pn=pattern.size();
+        int sn=s.size();
+        if(pn!=sn)
+        {
+            return false;
+        }
+        for(int i=0;i<pn; ++i)
+        {
+            for(auto x: m)
+            {
+                if(x.first==pattern[i]&&x.second!=s[i])
+                    return false;
+                if(x.first!=pattern[i]&&x.second==s[i])
+                {
+                    return false;
+                }
+                
+            }
+            m[pattern[i]]=s[i];
+        }
+        return true;
+    }
+};
