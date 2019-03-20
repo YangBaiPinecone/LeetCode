@@ -1,4 +1,5 @@
 // solution3  注意sum初始化问题
+// https://blog.csdn.net/yums467/article/details/49975977
 
 const int sizeval = 100000;
 int sum[sizeval];
