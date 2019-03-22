@@ -1,0 +1,52 @@
+//https://blog.csdn.net/WX_ming/article/details/81608556
+
+
+class Solution {
+public:
+    string long_max;
+    bool isAdditiveNumber(string num) {
+        vector<long long> nums;
+        long_max = to_string(LLONG_MAX);
+        return DFS(nums, num, 0, num.size());
+    }
+    bool isValid(vector<long long>& nums)
+    {
+        if(nums.size()<3)
+            return false;
+        for(int i=2; i<nums.size(); ++i)
+        {
+            if((nums[i-2]+nums[i-1])!=nums[i])
+                return false;
+        }
+        return true;
+    }
+    bool DFS(vector<long long>& nums, string& num, int pos, int N)
+    {
+        if(pos==N)  // 结束条件 
+            return isValid(nums);
+        for(int i=1; i<=N-pos; ++i)     // i代表字符串长度，不是index
+        {
+            if(num[pos]=='0' && i>1)    // 不是单个0， 而是以0开头
+            {
+                break;
+            }
+            string sub = num.substr(pos, i);
+            // 判断sub是否超出最大范围
+            if(sub.size()>long_max.size() || (sub.size()==long_max.size() && sub.compare(long_max)>0))
+            {
+                break;
+            }
+            nums.push_back(stoll(sub));
+            // 判断此时的nums是否满足additive条件
+            if((nums.size()>2 && !isValid(nums))||!DFS(nums, num, pos+i, N))
+            {
+                nums.pop_back();
+            }
+            else
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+};
