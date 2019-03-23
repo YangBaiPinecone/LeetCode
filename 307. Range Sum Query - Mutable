@@ -1,3 +1,4 @@
+// Solution3 (segmentation tree) is a good method.
 // naive method could pass this test:
 
 class NumArray {
