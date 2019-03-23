@@ -1,0 +1,33 @@
+// naive method could pass this test:
+
+class NumArray {
+private:
+    vector<int> my_nums;
+public:
+    NumArray(vector<int> nums) {
+        for(int i=0; i<nums.size(); ++i)
+        {
+            my_nums.push_back(nums[i]);
+        }
+    }
+    
+    void update(int i, int val) {
+        my_nums[i]=val;
+    }
+    
+    int sumRange(int i, int j) {
+        int sum =0;
+        for(int e=i; e<=j; ++e)
+        {
+            sum += my_nums[e];
+        }
+        return sum;
+    }
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * obj.update(i,val);
+ * int param_2 = obj.sumRange(i,j);
+ */
