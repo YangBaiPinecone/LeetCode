@@ -1,0 +1,26 @@
+// https://blog.csdn.net/CiaoLiang/article/details/50177735
+
+class Solution {
+public:
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
+        int length = primes.size();
+        vector<int> point(length, 0);   // times of primes used for prime factors
+        vector<int> ugly(n, INT_MAX);
+        ugly[0]=1;
+        for(int i=1; i<n; ++i)
+        {
+            for(int j=0; j<length; ++j)
+            {
+                ugly[i]=min(ugly[i], primes[j]*ugly[point[j]]); //这一步很关键，point[j]可以是0,1，。。。保证了ugly可以拿到以前的所有数字
+            }
+            for(int j=0; j<length; ++j)
+            {
+                if(ugly[i]==primes[j]*ugly[point[j]])
+                {
+                    ++point[j];
+                }
+            }
+        }
+        return ugly.back();
+    }
+};
